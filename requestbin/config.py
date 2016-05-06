@@ -35,10 +35,10 @@ if REALM == 'prod':
 
     REDIS_URL = os.environ.get("REDIS_URL")
     url_parts = urlparse.urlparse(REDIS_URL)
-    REDIS_HOST = url_parts.hostname
-    REDIS_PORT = url_parts.port
+    REDIS_HOST = url_parts.hostname or REDIS_HOST
+    REDIS_PORT = url_parts.port or REDIS_PORT
     REDIS_PASSWORD = url_parts.password
-    REDIS_DB = url_parts.fragment
+    REDIS_DB = url_parts.fragment if url_parts.fragment != '' else REDIS_DB
 
     BUGSNAG_KEY = os.environ.get("BUGSNAG_KEY", BUGSNAG_KEY)
 
